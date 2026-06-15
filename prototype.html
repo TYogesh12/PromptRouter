@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PromptRouter - The Digital Curator</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#ced6f5",
+                    "secondary": "#5a53b0",
+                    "on-tertiary-container": "#424a63",
+                    "primary-fixed": "#e1dfff",
+                    "on-secondary-container": "#4c45a1",
+                    "on-tertiary-fixed-variant": "#4b546d",
+                    "on-primary-container": "#3a36d5",
+                    "tertiary": "#565f78",
+                    "on-background": "#2b3437",
+                    "inverse-primary": "#8183ff",
+                    "surface-dim": "#d1dce0",
+                    "secondary-container": "#e3dfff",
+                    "secondary-dim": "#4e46a3",
+                    "primary-container": "#e1dfff",
+                    "on-secondary": "#fcf7ff",
+                    "on-tertiary": "#f9f8ff",
+                    "surface-variant": "#dbe4e7",
+                    "error-container": "#ff8b9a",
+                    "surface-tint": "#4846e2",
+                    "secondary-fixed-dim": "#d4cfff",
+                    "inverse-surface": "#0c0f10",
+                    "surface": "#f8f9fa",
+                    "tertiary-dim": "#4a536b",
+                    "on-tertiary-fixed": "#2f384f",
+                    "outline-variant": "#abb3b7",
+                    "on-secondary-fixed-variant": "#564fac",
+                    "inverse-on-surface": "#9b9d9e",
+                    "primary": "#4846e2",
+                    "on-error-container": "#782232",
+                    "surface-container-highest": "#dbe4e7",
+                    "tertiary-fixed-dim": "#c0c9e6",
+                    "on-surface": "#2b3437",
+                    "on-secondary-fixed": "#39318e",
+                    "surface-container": "#eaeff1",
+                    "on-error": "#fff7f7",
+                    "primary-fixed-dim": "#d1d0ff",
+                    "on-surface-variant": "#586064",
+                    "secondary-fixed": "#e3dfff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-dim": "#3b37d6",
+                    "on-primary": "#faf6ff",
+                    "surface-bright": "#f8f9fa",
+                    "on-primary-fixed": "#2418c4",
+                    "tertiary-fixed": "#ced6f5",
+                    "background": "#f8f9fa",
+                    "error-dim": "#4f0116",
+                    "error": "#9e3f4e",
+                    "on-primary-fixed-variant": "#4542df",
+                    "outline": "#737c7f",
+                    "surface-container-high": "#e3e9ec",
+                    "surface-container-low": "#f1f4f6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .mesh-gradient {
+            background-color: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(243, 75%, 95%, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(263, 70%, 96%, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(240, 60%, 98%, 1) 0, transparent 50%), 
+                radial-gradient(at 0% 100%, hsla(250, 80%, 97%, 1) 0, transparent 50%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-shadow {
+            box-shadow: 0px 12px 40px rgba(43, 52, 55, 0.06);
+        }
+        
+        #sidebar {
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #main-content {
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-label {
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+        
+        /* Sidebar Collapsed State */
+        .sidebar-collapsed #sidebar {
+            width: 88px;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        .sidebar-collapsed #main-content {
+            margin-left: 88px;
+        }
+        .sidebar-collapsed .nav-label,
+        .sidebar-collapsed .logo-text,
+        .sidebar-collapsed .user-details,
+        .sidebar-collapsed .history-header {
+            opacity: 0;
+            visibility: hidden;
+            display: none;
+        }
+        .sidebar-collapsed .nav-item {
+            justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .sidebar-collapsed .nav-item::before {
+            display: none;
+        }
+        .sidebar-collapsed #toggle-btn {
+            margin-left: 0;
+            width: 40px;
+        }
+        .sidebar-collapsed #toggle-btn span {
+            transform: rotate(180deg);
+        }
+
+        #metrics-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+            opacity: 0;
+        }
+        #metrics-toggle:checked ~ #metrics-content {
+            max-height: 100px;
+            opacity: 1;
+        }
+        #metrics-toggle:checked ~ label .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Ensure bottom input stays centered in main content */
+        .bottom-input-container {
+            left: var(--sidebar-width, 18rem);
+            width: calc(100% - var(--sidebar-width, 18rem));
+            transition: left 0.3s, width 0.3s;
+        }
+        .sidebar-collapsed .bottom-input-container {
+            left: 88px;
+            width: calc(100% - 88px);
+        }</style>
+</head>
+<body class="mesh-gradient min-h-screen text-on-surface">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-6 z-40 w-72 flex-shrink-0 bg-white/70 backdrop-blur-3xl border-r border-slate-200/50 shadow-none" id="sidebar">
+<div class="mb-2 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-gradient-to-tr from-primary to-primary-dim rounded-xl flex-shrink-0 flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>router</span>
+</div>
+<div class="logo-text overflow-hidden whitespace-nowrap">
+<h1 class="text-xl font-bold tracking-tighter text-slate-900 font-headline">PromptRouter</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant/70 font-semibold">The Digital Curator</p>
+</div>
+</div>
+</div>
+<!-- Toggle Button moved to top -->
+<button class="flex items-center justify-center w-8 h-8 ml-auto mb-6 text-slate-400 hover:text-primary transition-colors bg-surface-container-low/50 rounded-lg" id="toggle-btn" onclick="document.body.classList.toggle('sidebar-collapsed')">
+<span class="material-symbols-outlined text-sm transition-transform duration-300">chevron_left</span>
+</button>
+<nav class="flex-1 space-y-2 overflow-x-hidden">
+<!-- Active: Chat -->
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-indigo-600 bg-indigo-50/40 rounded-xl relative before:absolute before:left-0 before:w-1 before:h-6 before:bg-indigo-600 before:rounded-r-full font-manrope tracking-tight font-medium text-sm transition-all duration-300" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="nav-label whitespace-nowrap">Chat</span>
+</a>
+<!-- Inactive -->
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-900 transition-colors font-manrope tracking-tight font-medium text-sm transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="nav-label whitespace-nowrap">Dashboard</span>
+</a>
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-900 transition-colors font-manrope tracking-tight font-medium text-sm transition-all duration-300" href="#">
+<span class="material-symbols-outlined">savings</span>
+<span class="nav-label whitespace-nowrap">Cost Savings</span>
+</a>
+<div class="pt-8 pb-4 history-header">
+<p class="px-4 text-[11px] font-bold text-on-surface-variant/50 uppercase tracking-widest whitespace-nowrap">Recent History</p>
+</div>
+<a class="nav-item flex items-center gap-3 px-4 py-2.5 text-slate-500 hover:text-slate-900 transition-colors font-manrope tracking-tight font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-sm">history</span>
+<span class="nav-label whitespace-nowrap">Efficiency</span>
+</a>
+<a class="nav-item flex items-center gap-3 px-4 py-2.5 text-slate-500 hover:text-slate-900 transition-colors font-manrope tracking-tight font-medium text-sm" href="#">
+<span class="material-symbols-outlined text-sm">history</span>
+<span class="nav-label whitespace-nowrap">API Logs</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 space-y-4">
+<div class="bg-surface-container-low/40 rounded-2xl p-4 flex items-center gap-3">
+<img alt="Alex Rivera" class="w-10 h-10 rounded-full object-cover flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqh64uOq5JSxvhIjEn6gsphfTtooOb-TG3yz6TdA8zLrshPtHeDlTJgPxBimLKVLFwG1h0nLZokCPoG0Al7VtpFhz0-SeQCvt_YLfXB-mL77VaY9jYnYXN80FrYI4mrPIwlz7tzrSvyVS3NbPC162jVjDTUhKLavI-3iBoaFBPKL6vTSIuptUgEo_R3Gn8U4ZsEGtRJaWu2krDuHbCEogomzS2TkkVi1MH38sxTv-8oby9Q0a9d_DuP5H87a9IYL7GTvA4WD_qlzk"/>
+<div class="user-details flex-1 overflow-hidden">
+<p class="text-sm font-bold text-on-surface truncate">Alex Rivera</p>
+<p class="text-[11px] text-on-surface-variant">Free Plan</p>
+</div>
+<button class="logout-btn text-slate-400 hover:text-error transition-colors flex-shrink-0">
+<span class="material-symbols-outlined">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<div class="ml-72 transition-all duration-300" id="main-content">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-10 w-full h-20 bg-transparent z-30">
+<div class="flex items-center gap-4">
+<span class="text-on-surface-variant text-sm font-medium tracking-tight">{ Chat Name }</span>
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+</div>
+<div class="flex items-center gap-6">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Chat Area -->
+<main class="flex flex-col items-center">
+<div class="w-full max-w-4xl px-8 pt-12 pb-32 space-y-16">
+<!-- User Message -->
+<div class="flex gap-8 group">
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+</div>
+<div class="flex-1 pt-1.5">
+<p class="text-on-surface leading-relaxed font-medium">
+                        Analyze the cost efficiency of GPT-4 vs Claude 3 for high-volume summarization tasks.
+                    </p>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex gap-8">
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-dim flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>auto_awesome</span>
+</div>
+</div>
+<div class="flex-1 pt-1.5 space-y-6">
+<div class="prose prose-slate max-w-none">
+<p class="text-on-surface leading-relaxed text-[0.9375rem]">
+                            For high-volume summarization, the comparison between <span class="font-bold text-primary">GPT-4o</span> and <span class="font-bold text-secondary">Claude 3.5 Sonnet</span> reveals distinct economic advantages depending on your specific throughput.
+                        </p>
+<!-- Compact Routing Metrics Toggle -->
+<div class="mt-4 flex flex-col items-start">
+<input class="hidden" id="metrics-toggle" type="checkbox"/>
+<label class="flex items-center gap-2 cursor-pointer group" for="metrics-toggle">
+<span class="material-symbols-outlined text-primary text-[16px] transition-transform duration-300 toggle-icon">expand_more</span>
+<span class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-primary/70 font-headline group-hover:text-primary transition-colors">Intelligence Routing Stats</span>
+</label>
+<div class="w-full" id="metrics-content">
+<div class="mt-2 py-3 px-4 bg-white/40 backdrop-blur-md border border-slate-200/50 rounded-xl flex items-center flex-wrap gap-x-6 gap-y-1 text-[11px] font-medium text-on-surface-variant/80">
+<div class="flex gap-1.5 items-center">
+<span class="opacity-50 uppercase tracking-tighter text-[9px]">Model:</span>
+<span class="text-on-surface font-bold">Claude 3.5 Sonnet</span>
+</div>
+<div class="flex gap-1.5 items-center border-l border-slate-200 pl-6">
+<span class="opacity-50 uppercase tracking-tighter text-[9px]">Latency:</span>
+<span class="text-on-surface font-bold">1.2s</span>
+</div>
+<div class="flex gap-1.5 items-center border-l border-slate-200 pl-6">
+<span class="opacity-50 uppercase tracking-tighter text-[9px]">Cost:</span>
+<span class="text-on-surface font-bold">$0.0045</span>
+</div>
+<div class="flex gap-1.5 items-center border-l border-slate-200 pl-6">
+<span class="opacity-50 uppercase tracking-tighter text-[9px]">Savings:</span>
+<span class="text-emerald-600 font-bold">40% vs GPT-4o</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-8 rounded-3xl bg-primary/5 border border-primary/10">
+<h2 class="font-headline text-lg font-bold text-primary mb-4">The Router Recommendation</h2>
+<p class="text-on-surface/80 leading-relaxed mb-4">
+                                Based on a typical summarization profile (high input, low-to-medium output), <span class="font-semibold text-on-surface">Claude 3.5 Sonnet</span> offers a <span class="text-primary font-bold">40% cost reduction</span> on input tokens without sacrificing nuanced context window performance.
+                            </p>
+<p class="text-on-surface/80 leading-relaxed">
+                                PromptRouter will automatically route <span class="italic">Level 1</span> summaries to <span class="font-semibold">Claude 3 Haiku</span> ($0.25/1M) for even greater savings, reserving GPT-4o only for creative interpretation tasks.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Input Box Area -->
+<div class="fixed bottom-0 flex flex-col items-center pb-10 px-8 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none bottom-input-container">
+<div class="w-full max-w-3xl relative pointer-events-auto">
+<div class="bg-surface-container-lowest rounded-2xl custom-shadow flex items-center p-2 group transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/20">
+<input class="flex-1 bg-transparent border-none focus:ring-0 px-4 py-3 text-on-surface placeholder:text-on-surface-variant/40 text-[0.9375rem]" placeholder="Ask PromptRouter anything..." type="text"/>
+<button class="w-12 h-12 bg-gradient-to-tr from-primary to-primary-dim text-white rounded-xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined">arrow_upward</span>
+</button>
+</div>
+<p class="text-center mt-4 text-[10px] text-on-surface-variant/60 font-medium tracking-wide uppercase">
+                    PromptRouter automatically selects the most cost-efficient language model.
+                </p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

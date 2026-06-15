@@ -1,0 +1,52 @@
+# Dependency directories
+node_modules/
+frontend/node_modules/
+.venv/
+env/
+venv/
+ENV/
+bin/
+obj/
+
+# Next.js build output
+.next/
+frontend/.next/
+out/
+build/
+dist/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+backend/__pycache__/
+ml/__pycache__/
+
+# Environment variables (CRITICAL: Never commit these)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+frontend/.env*
+backend/.env
+
+# Databases / Logs
+*.log
+*.sqlite
+*.db
+
+# OS Files
+.DS_Store
+Thumbs.db
+.directory
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+ml/models/
+ml/data/

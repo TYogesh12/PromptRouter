@@ -1,0 +1,13 @@
+fastapi
+python-dotenv
+sqlalchemy
+psycopg2-binary
+groq
+google-genai
+supabase
+scikit-learn
+pandas
+uvicorn[standard]
+python-multipart
+python-jose[cryptography]
+httpx
