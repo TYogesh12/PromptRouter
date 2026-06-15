@@ -1,8 +1,6 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.database.db import Base, engine
-from backend.app.models.db_model import Prompt
-from sqlalchemy.orm import Session
 from backend.app.routes import prompt
 from backend.app.config import ALLOWED_ORIGINS
 
