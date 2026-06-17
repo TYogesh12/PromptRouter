@@ -309,7 +309,7 @@ export default function ChatClient() {
               }}
               rows={1}
               readOnly={isTyping}
-              placeholder="Message PromptRouter... (Shift+Enter for new line)"
+              placeholder="Message NexusAI... (Shift+Enter for new line)"
               className="flex-1 bg-transparent border-none focus:ring-0 px-6 py-3 text-slate-100 placeholder:text-slate-500 text-[15px] outline-none w-full resize-none min-h-[48px] max-h-40 overflow-y-auto leading-relaxed"
             />
             <button

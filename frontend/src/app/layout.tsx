@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dashboard | PromptRouter",
+  title: "Dashboard | NexusAI",
   description: "An intelligent routing layer for LLMs to optimize cost and performance.",
 };
 

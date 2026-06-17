@@ -1,4 +1,4 @@
-# 🚀 PromptRouter — Intelligent AI Routing Engine
+# 🚀 NexusAI — Intelligent AI Routing Engine
 
 > An intelligent, cost-optimized AI assistant that dynamically routes every prompt to the most appropriate language model based on complexity — delivering GPT-4-level answers when needed, and blazing-fast cheap responses when they're not.
 
@@ -6,7 +6,7 @@
 
 ## 📸 Overview
 
-PromptRouter is a full-stack, production-grade AI application built for **cost efficiency and architectural sophistication**. Instead of blindly sending every prompt to the most powerful (and expensive) model, it uses a custom-trained ML classifier to evaluate complexity and hot-swap the underlying LLM on a per-prompt basis — all invisibly to the user.
+NexusAI is a full-stack, production-grade AI application built for **cost efficiency and architectural sophistication**. Instead of blindly sending every prompt to the most powerful (and expensive) model, it uses a custom-trained ML classifier to evaluate complexity and hot-swap the underlying LLM on a per-prompt basis — all invisibly to the user.
 
 This project was engineered as a demonstration of advanced AI systems design, multi-tenant SaaS architecture, and real-world full-stack development.
 

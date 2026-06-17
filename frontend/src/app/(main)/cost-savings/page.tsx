@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import CostSavingsClient from "./CostSavingsClient";
 
 export const metadata: Metadata = {
-  title: "Financial Savings | PromptRouter",
+  title: "Financial Savings | NexusAI",
   description: "Detailed financial audit of LLM cost efficiency and ROI.",
 };
 

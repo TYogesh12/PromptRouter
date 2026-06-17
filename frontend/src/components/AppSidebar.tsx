@@ -93,7 +93,7 @@ export default function AppSidebar({
           style={{ opacity: isCollapsed ? 0 : 1, transition: "opacity 0.2s ease" }}
         >
           <h1 className="text-lg font-bold tracking-tighter text-slate-100 font-headline">
-            PromptRouter
+            NexusAI
           </h1>
           <p className="text-[9px] uppercase tracking-widest text-slate-400 font-semibold opacity-70">
             The Digital Curator

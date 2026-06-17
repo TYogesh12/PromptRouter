@@ -54,7 +54,7 @@ export default function LoginPage() {
                         ⚡
                     </div>
                     <h1 className="text-[26px] font-extrabold tracking-tight text-white mb-2 font-headline">
-                        PromptRouter
+                        NexusAI
                     </h1>
                     <p className="text-[13px] font-medium tracking-wide text-zinc-500">
                         {isLogin ? "Welcome back, Curator." : "Create your account."}
