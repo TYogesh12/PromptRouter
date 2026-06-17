@@ -30,7 +30,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const currentUrlThread = pathname === "/" ? (searchParams?.get("thread") || null) : null;
+  const currentUrlThread = pathname === "/chat" ? (searchParams?.get("thread") || null) : null;
   const [prevUrlThread, setPrevUrlThread] = useState<string | null>(currentUrlThread);
 
   if (currentUrlThread !== prevUrlThread) {
@@ -62,19 +62,19 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   const loadThread = (id: string) => {
     setActiveThreadId(id);
-    if (pathname !== "/") {
-      router.push(`/?thread=${id}`);
+    if (pathname !== "/chat") {
+      router.push(`/chat?thread=${id}`);
     } else {
-      window.history.pushState(null, '', `/?thread=${id}`);
+      window.history.pushState(null, '', `/chat?thread=${id}`);
     }
   };
 
   const startNewChat = () => {
     setActiveThreadId(null);
-    if (pathname !== "/") {
-      router.push("/");
+    if (pathname !== "/chat") {
+      router.push("/chat");
     } else {
-      window.history.pushState(null, '', "/");
+      window.history.pushState(null, '', "/chat");
     }
   };
 

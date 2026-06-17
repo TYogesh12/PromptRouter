@@ -53,7 +53,7 @@ export default function AppSidebar({
   };
 
   const navItems = [
-    { label: "Chat", icon: MessageSquare, href: "/" },
+    { label: "Chat", icon: MessageSquare, href: "/chat" },
     { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
     { label: "Cost Savings", icon: Coins, href: "/cost-savings" },
   ];

@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
     const [error, setError] = useState("");
     const router = useRouter();
@@ -20,7 +22,7 @@ export default function LoginPage() {
                 // Log the user in
                 const { error } = await supabase.auth.signInWithPassword({ email, password });
                 if (error) throw error;
-                router.push("/"); // Send to the main chat page!
+                router.push("/chat"); // Send to the main chat page!
             } else {
                 // Sign the user up
                 const { error } = await supabase.auth.signUp({ email, password });
@@ -80,7 +82,7 @@ export default function LoginPage() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                                 className="w-full px-5 py-3.5 text-[15px] bg-white/[0.03] text-slate-100 rounded-xl border border-white/5 focus:border-emerald-500/50 focus:bg-white/[0.05] focus:shadow-[0_0_15px_rgba(16,185,129,0.1)] outline-none transition-all duration-300 placeholder:text-zinc-600 font-medium"
-                                placeholder="sysadmin@local.host"
+                                placeholder="example@mail.com"
                             />
                         </div>
 
@@ -90,14 +92,23 @@ export default function LoginPage() {
                                     Password
                                 </label>
                             </div>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                className="w-full px-5 py-3.5 text-[15px] bg-white/[0.03] text-slate-100 rounded-xl border border-white/5 focus:border-emerald-500/50 focus:bg-white/[0.05] focus:shadow-[0_0_15px_rgba(16,185,129,0.1)] outline-none transition-all duration-300 placeholder:text-zinc-600 font-medium tracking-widest"
-                                placeholder="••••••••"
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    className="w-full px-5 py-3.5 pr-12 text-[15px] bg-white/[0.03] text-slate-100 rounded-xl border border-white/5 focus:border-emerald-500/50 focus:bg-white/[0.05] focus:shadow-[0_0_15px_rgba(16,185,129,0.1)] outline-none transition-all duration-300 placeholder:text-zinc-600 font-medium tracking-widest"
+                                    placeholder="Your Password"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-emerald-400 transition-colors"
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
                         </div>
                     </div>
 

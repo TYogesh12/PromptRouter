@@ -106,7 +106,7 @@ export default function CostSavingsClient() {
               <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Total Savings Achieved</span>
             </div>
             <h1 className="text-6xl font-black font-headline tracking-tighter text-white">
-              ₹{totalSaved.toFixed(2)}
+              ₹{totalSaved.toFixed(4)}
             </h1>
             <p className="text-slate-400 max-w-md text-sm leading-relaxed">
               The intelligent routing infrastructure has successfully captured <span className="text-emerald-400 font-bold">{savingsRate}%</span> more efficiency compared to basic top-tier model usage.
@@ -116,7 +116,7 @@ export default function CostSavingsClient() {
           <div className="grid grid-cols-2 gap-4 shrink-0 min-w-[320px]">
             <div className="p-4 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-md">
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Actual Spend</p>
-              <p className="text-xl font-bold text-slate-100">₹{totalSpent.toFixed(2)}</p>
+              <p className="text-xl font-bold text-slate-100">₹{totalSpent.toFixed(4)}</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-md">
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Saved Rate</p>
@@ -125,7 +125,7 @@ export default function CostSavingsClient() {
             <div className="col-span-2 p-4 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-md flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Unoptimized Cost</p>
-                <p className="text-sm font-medium text-slate-400 line-through opacity-50">₹{wouldHaveCost.toFixed(2)}</p>
+                <p className="text-sm font-medium text-slate-400 line-through opacity-50">₹{wouldHaveCost.toFixed(4)}</p>
               </div>
               <div className="text-right">
                 <div className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 text-[10px] font-bold">LIFETIME ROI</div>

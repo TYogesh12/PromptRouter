@@ -153,14 +153,14 @@ export default function DashboardClient() {
           },
           {
             label: "Total Cost",
-            value: `₹${totalCost.toFixed(2)}`,
-            sub: `vs ₹${(totalCost + totalSaved).toFixed(2)} top model`,
+            value: `₹${totalCost.toFixed(4)}`,
+            sub: `vs ₹${(totalCost + totalSaved).toFixed(4)} top model`,
             subColor: "text-amber-400",
             subBg: "bg-amber-500/10 border border-amber-500/20",
           },
           {
             label: "Total Saved",
-            value: `₹${totalSaved.toFixed(2)}`,
+            value: `₹${totalSaved.toFixed(4)}`,
             sub: `${savingsRate}% savings rate`,
             subColor: "text-emerald-400",
             subBg: "bg-emerald-500/10 border border-emerald-500/20",
@@ -344,7 +344,7 @@ export default function DashboardClient() {
                   </td>
                   <td className="px-6 py-4">
                     <span className={h.savings && h.savings > 0 ? "text-emerald-400 font-bold" : "text-slate-500"}>
-                      {h.savings && h.savings > 0 ? `+₹${h.savings.toFixed(2)}` : "--"}
+                      {h.savings && h.savings > 0 ? `+₹${h.savings.toFixed(4)}` : "--"}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">

@@ -49,7 +49,7 @@ export default function ChatClient() {
       el.style.scrollBehavior = "smooth";
       el.scrollTop = el.scrollHeight;
     };
-    
+
     requestAnimationFrame(scroll);
   }, [messages, activeThreadId]);
 
@@ -80,7 +80,7 @@ export default function ChatClient() {
       }
     };
     initData();
-  }, [router]);
+  }, []);
 
   // SYNC: Load thread messages when the activeThreadId changes or when history is initially loaded
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function ChatClient() {
     } else {
       setMessages([]);
     }
-  }, [activeThreadId, fullHistory.length === 0]); 
+  }, [activeThreadId, fullHistory.length === 0]);
 
 
   const handleSend = async (e?: React.FormEvent | React.KeyboardEvent) => {
@@ -122,12 +122,12 @@ export default function ChatClient() {
         const title = userText.length > 30 ? userText.substring(0, 30) + "..." : userText;
         const newThread = await createThread(title);
         currentThreadId = newThread.id;
-        window.history.pushState(null, '', `/?thread=${currentThreadId}`);
+        window.history.pushState(null, '', `/chat?thread=${currentThreadId}`);
         await refreshThreads();
       }
-      
+
       const data = await submitPrompt(userText, currentThreadId);
-      
+
       const elapsed = Date.now() - startTime;
       if (elapsed < 1200) {
         await new Promise(resolve => setTimeout(resolve, 1200 - elapsed));
@@ -136,13 +136,13 @@ export default function ChatClient() {
       // 2. Finalize: ensure the stable DB ID is used for the response
       const stableMsgId = data.id || aiMessageId;
       setMessages((prev) => [...prev, { id: stableMsgId, role: "ai", content: data.response, analytics: data }]);
-      
-      setFullHistory(prev => [{ 
-        ...data, 
-        id: stableMsgId, 
-        thread_id: currentThreadId, 
-        prompt: userText, 
-        created_at: new Date().toISOString() 
+
+      setFullHistory(prev => [{
+        ...data,
+        id: stableMsgId,
+        thread_id: currentThreadId,
+        prompt: userText,
+        created_at: new Date().toISOString()
       } as HistoryItems, ...prev]);
 
     } catch {
@@ -155,7 +155,7 @@ export default function ChatClient() {
   const getSavingsDisplay = (analytics: PromptResponse) => {
     const s = analytics.savings || 0;
     const c = analytics.estimated_cost || 0;
-    
+
     let percentage = 0.0;
     if (s > 0 || c > 0) {
       const topCost = c + s;
